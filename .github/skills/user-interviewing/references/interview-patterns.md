@@ -2,6 +2,46 @@
 
 Common questioning strategies for different scenarios.
 
+## Pattern 0: Continuous Interview with Exit Option
+
+Use for any interview where users should control depth and duration.
+
+**Key feature**: Every question set includes an exit option like "I'm done answering questions" or "No more questions".
+
+**Flow**:
+```
+Q1: Core requirement with exit option
+  → User answers → Continue
+  → User selects exit → Summarize & proceed
+
+Q2: Follow-up based on Q1 response with exit option
+  → User answers → Continue
+  → User selects exit → Summarize & proceed
+
+Q3+: Additional clarifications as needed
+```
+
+**Implementation**:
+```yaml
+questions:
+  - header: "requirement1"
+    question: "What's the primary goal?"
+    allowFreeformInput: true
+  
+  - header: "continue1"
+    question: "Any other details to clarify?"
+    options:
+      - label: "Yes, I have more details"
+      - label: "No, I'm done answering questions"
+        recommended: true
+```
+
+**After response**:
+- If "No, I'm done" → Restate requirements and proceed
+- If "Yes" → Ask targeted follow-up questions
+
+---
+
 ## Pattern 1: Scope Clarification
 
 Use when request is vague about what should be included.

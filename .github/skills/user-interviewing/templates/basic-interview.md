@@ -2,6 +2,49 @@
 
 Template for structuring user interviews using `vscode_askQuestions`.
 
+## Continuous Interview Pattern (Recommended)
+
+This pattern allows unlimited questions with user control over when to stop.
+
+```yaml
+# First round of questions
+questions:
+  - header: "coreGoal"
+    question: "What's the primary goal of this project?"
+    allowFreeformInput: true
+
+  - header: "continueAsking"
+    question: "Any additional requirements to clarify?"
+    options:
+      - label: "Yes, I have more to add"
+      - label: "No, I'm done answering questions"
+        recommended: true
+```
+
+**After user responds**:
+- If "Yes, I have more to add":
+  ```yaml
+  questions:
+    - header: "followUp1"
+      question: "What else should I know?"
+      allowFreeformInput: true
+
+    - header: "continueAsking2"
+      question: "Anything else?"
+      options:
+        - label: "Yes, continue asking"
+        - label: "No, I'm done"
+          recommended: true
+  ```
+
+- If "No, I'm done":
+  ```
+  Summarize and proceed with implementation:
+  "Based on your answers, here's what I understand..."
+  ```
+
+---
+
 ## Example 1: Project Type Selection
 
 ```yaml
@@ -16,15 +59,10 @@ questions:
     question: "What type of project are you building?"
     options:
       - label: "Python Script"
-        recommended: false
       - label: "Python Package/Project"
-        recommended: false
       - label: "TypeScript/JavaScript"
-        recommended: false
       - label: "Next.js Application"
-        recommended: false
       - label: "Other"
-        recommended: false
 
   - header: "frameworks"
     question: "Which frameworks or libraries do you want?"
@@ -37,9 +75,12 @@ questions:
       - label: "None"
         recommended: true
 
-  - header: "additionalContext"
-    question: "Any other requirements or preferences?"
-    allowFreeformInput: true
+  - header: "moreDetails"
+    question: "Need to ask more questions?"
+    options:
+      - label: "Yes, I have more requirements"
+      - label: "No, that's all for now"
+        recommended: true
 ```
 
 ## Example 2: Feature Specification
@@ -67,9 +108,12 @@ questions:
       - label: "Quality (comprehensive, well-tested)"
       - label: "Flexibility (easy to extend)"
 
-  - header: "timeline"
-    question: "When do you need this?"
-    allowFreeformInput: true
+  - header: "continueQuestions"
+    question: "Need to clarify anything else?"
+    options:
+      - label: "Yes, more details"
+      - label: "No, I'm done"
+        recommended: true
 ```
 
 ## Example 3: Bug/Issue Diagnosis
@@ -91,44 +135,95 @@ questions:
       - label: "Sometimes (intermittent)"
       - label: "Once (one-time)"
 
-  - header: "context"
-    question: "When did this start?"
-    allowFreeformInput: true
+  - header: "moreInfo"
+    question: "Need to ask more about the issue?"
+    options:
+      - label: "Yes, ask follow-ups"
+      - label: "No, that's enough"
+        recommended: true
 ```
 
-## Usage Pattern
+## Usage Pattern: Multi-Round Interview
 
-After you've formulated your interview questions, invoke the tool:
+The continuous interview pattern allows multiple rounds of questions:
 
+**Round 1**:
 ```python
 vscode_askQuestions({
   "questions": [
     {
-      "header": "first_question_id",
+      "header": "first_question",
       "question": "Your question here?",
       "options": [...],
       "multiSelect": false,
       "allowFreeformInput": false
     },
-    # ... more questions
+    {
+      "header": "continue_asking",
+      "question": "Ready for follow-up questions?",
+      "options": [
+        {"label": "Yes"},
+        {"label": "No"},
+      ]
+    }
   ]
 })
 ```
 
+**Round 2** (if user said "Yes"):
+```python
+vscode_askQuestions({
+  "questions": [
+    {
+      "header": "followup_question",
+      "question": "Follow-up based on previous answer?",
+      "allowFreeformInput": true,
+    },
+    {
+      "header": "continue_asking2",
+      "question": "More questions needed?",
+      "options": [
+        {"label": "Yes"},
+        {"label": "No"},
+      ]
+    }
+  ]
+})
+```
+
+**Continue** as needed until user selects "No" or an equivalent exit option.
+
 ## Processing Responses
 
-After receiving answers:
+### For Each Round:
 
-1. **Document the responses**—note the key decisions
-2. **Identify gaps**—anything still unclear?
-3. **Restate requirements**—"Based on your answers, here's what I'll build..."
-4. **Propose next steps**—outline your action plan
-5. **Confirm alignment**—"Does that sound right?"
+1. **Check for exit option** — Did the user select "No more questions", "I'm done", or equivalent?
+   - If YES → Skip to "Finalize Interview"
+   - If NO → Continue to step 2
+
+2. **Extract answers** — Document the key information from responses
+
+3. **Identify gaps** — What follow-up would be most valuable?
+
+4. **Ask next round** — Present the follow-up questions with a new continue/exit option
+
+### Finalize Interview:
+
+1. **Document all responses** — Note all key decisions and preferences
+2. **Identify any critical gaps** — Are there essential unknowns?
+3. **Restate requirements** — "Based on your answers, here's what I understand..."
+4. **Propose next steps** — Outline your action plan
+5. **Confirm alignment** — "Does that sound right?"
+6. **Proceed** — Move to implementation
 
 ## Tips
 
-- **Keep introductions brief**: "I have a few quick questions to clarify..."
-- **Order by importance**: Ask scope before constraints
+- **Always include an exit option**: Every question set needs a "No more questions" or "I'm done" option
+- **Start simple**: Begin with 1-2 core questions; let user control depth
+- **Respect user's exit choice**: If they select the exit option, honor it immediately
+- **Ask valuable follow-ups**: Each new round should address a specific gap, not repeat questions
+- **Keep introductions brief**: "I have a few clarifications..." 
+- **Order by importance**: Ask scope before constraints, core before details
 - **Use defaults**: Mark recommended options to guide hesitant users
 - **Validate assumptions**: "It sounds like you need X—is that right?"
-- **Know when to stop**: Once clarified, move to action immediately
+- **Track what you've learned**: Avoid asking the same thing twice across rounds

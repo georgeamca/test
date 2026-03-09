@@ -35,13 +35,15 @@ Then describe the task or feature you need clarity on.
 
 #### 3. Interview Structure
 
-The skill follows a standard 5-step interview process:
+The skill follows a dynamic multi-round interview process:
 
 1. **Analyze the Request** — Identify what's clear and what's ambiguous
-2. **Formulate Questions** — Create 3-5 focused questions
-3. **Ask Questions** — Present structured questions to the user
-4. **Process Responses** — Review answers to understand intent
-5. **Restate & Proceed** — Summarize requirements and outline the plan
+2. **Ask Initial Questions** — Start with core clarifications (usually 2-3 questions)
+3. **Include Exit Option** — Every question set has "I'm done" or "No more questions"
+4. **Process Responses** — Check if user wants to continue or exit
+5. **Ask Follow-ups** — If continuing, ask targeted clarification questions
+6. **Repeat** — Continue rounds until user selects the exit option
+7. **Restate & Proceed** — Summarize requirements and outline the plan
 
 #### 4. Question Types
 
@@ -53,31 +55,37 @@ The skill uses different question formats:
 | Multiple choice | Fast decisions | "TypeScript or JavaScript?" |
 | Yes/No | Binary decisions | "Do you need real-time sync?" |
 | Multiple select | List priorities | "Which features are essential?" |
+| Exit option | User control | "Any more details to add?" |
 
 ### Example Interview Session
 
 **User Request**: "Create a new project"
 
-**Agent Interview**:
+**Agent Round 1**:
 ```
 I need a few clarifications before setting up:
 
 1. What type of project?
    → Python Script / Python Project / TypeScript / Next.js / Other
 
-2. Will this be personal or team-based?
-   → Personal / Team / Company
-
-3. Any frameworks or tools required?
-   → React, Vue, Angular, Svelte, None, or specify
-
-4. What's the primary goal?
-   → [Open-ended response]
+2. Any more requirements to clarify?
+   → Yes, I have more details
+   → No, I'm done answering questions
 ```
 
-**Agent Summary** (after responses):
+**If user selects "Yes"**, Agent Round 2:
 ```
-Based on your answers, here's what I'll create:
+3. Which frameworks or tools?
+   → [options]
+
+4. Ready to proceed?
+   → Yes, I've given enough info
+   → No, more questions
+```
+
+**If user selects "No more questions"**, Agent Summary:
+```
+Perfect! Based on your answers, here's what I'll create:
 - A [TypeScript] project
 - Using [Next.js] framework
 - For [personal] use
@@ -88,31 +96,35 @@ Ready to proceed?
 
 ### Key Interview Patterns
 
-The skill includes 5 core interview patterns:
+The skill includes 6 core interview patterns:
 
-1. **Scope Clarification** — Define must-haves, nice-to-haves, and exclusions
-2. **Technology Stack** — Determine tech preferences and constraints
-3. **Constraint Discovery** — Uncover deadlines, budgets, team size
-4. **Validation & Preference** — Confirm assumptions and gather preferences
-5. **Phased Approach** — Break complex work into MVP and future phases
+1. **Continuous Interview with Exit Option** — User controls how many rounds; every question set includes an exit
+2. **Scope Clarification** — Define must-haves, nice-to-haves, and exclusions
+3. **Technology Stack** — Determine tech preferences and constraints
+4. **Constraint Discovery** — Uncover deadlines, budgets, team size
+5. **Validation & Preference** — Confirm assumptions and gather preferences
+6. **Phased Approach** — Break complex work into MVP and future phases
 
-See `.github/skills/user-interviewing/references/interview-patterns.md` for detailed patterns.
+See [interview-patterns.md](.github/skills/user-interviewing/references/interview-patterns.md) for detailed patterns.
 
 ### Best Practices
 
 ✅ **Do**:
-- Ask focused questions (3-5 total)
+- Always include an exit option ("I'm done") in every question set
+- Start with 2-3 core questions, then add follow-ups based on responses
+- Ask valuable follow-up questions that address specific gaps
+- Show understanding by restating key requirements
+- Respect user's exit choice and proceed immediately
+- Track what you've learned to avoid repeating questions
 - Use multiple-choice questions for faster responses
-- Restate requirements for alignment
-- Move forward decisively once clarified
-- Avoid unnecessary questions about obvious details
 
 ❌ **Don't**:
 - Ask leading questions
-- Ask too many questions (aim for 3-5)
+- Repeat questions across interview rounds
 - Ask about obvious details
 - Disguise assumptions as questions
-- Continue interviewing after clarity is reached
+- Force more questions if user has selected the exit option
+- Ask more than 3-4 questions per round
 
 ### Files
 

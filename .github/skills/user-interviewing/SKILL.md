@@ -20,11 +20,13 @@ Gather comprehensive requirements and clarify ambiguities through structured que
 
 ## Core Principles
 
-1. **Ask focused questions**: Narrow down scope and intent with 3-5 specific questions
-2. **Use the vscode_askQuestions tool**: Provides structured UI for user responses
-3. **Infer context**: Don't ask about obvious details; focus on ambiguities
-4. **Validate assumptions**: Confirm suspected intent before proceeding
-5. **Progress to action**: End interview by restating requirements and proceeding
+1. **Ask focused questions**: Start with scope, then gather additional details as needed
+2. **Enable user control**: Always offer an "I'm done" or "No more questions" option to exit
+3. **Use the vscode_askQuestions tool**: Provides structured UI for user responses
+4. **Allow unlimited depth**: Continue asking follow-up questions based on responses
+5. **Infer context**: Don't ask about obvious details; focus on ambiguities
+6. **Validate assumptions**: Confirm suspected intent before proceeding
+7. **Progress to action**: End interview by restating requirements and proceeding
 
 ## Interview Patterns
 
@@ -37,34 +39,43 @@ Use [basic-interview.md](./templates/basic-interview.md) as a starting point for
 ## Procedure
 
 ### 1. Analyze the Request
-Read the user's request carefully. Identify what's clear and what's ambiguous.
+Read the user's request carefully. Identify what's clear and what's ambiguous. Determine the most important clarifications needed.
 
-### 2. Formulate Questions
-Create 3-5 focused questions that clarify scope, intent, and preferences. Use open-ended questions to understand reasoning, but offer options for faster responses.
+### 2. Formulate Initial Questions
+Create 2-3 focused questions that clarify the core intent and scope. Always include an exit option.
 
 **Example questions**:
 - What's the primary goal? (open)
 - Which of these approaches fits best? (multiple choice)
-- Should we prioritize speed or maintainability? (binary choice)
 - Do you have existing code to work with? (yes/no)
 
 ### 3. Invoke vscode_askQuestions
-Use the `vscode_askQuestions` tool to present questions to the user. Structure each question with:
+Use the `vscode_askQuestions` tool to present questions to the user. **Always include an exit option in every question set**:
+
+Structure each question with:
 - `header`: Unique identifier (1-2 words)
 - `question`: Clear, concise question text
-- `options`: Fixed choices (if applicable)
+- `options`: Include "I'm done answering questions" or "No more questions" as the last option
 - `multiSelect`: Allow multiple selections (if applicable)
 - `allowFreeformInput`: Allow custom answers (if applicable)
 
 ### 4. Process Responses
-Review the answers to understand:
-- What the user actually wants
-- Constraints and preferences
-- Assumptions to validate
-- Next steps to propose
+Review the answers to determine:
+- Whether the user selected an exit option → Proceed to step 6
+- Gaps or ambiguities that need clarification → Continue to step 5
+- What follow-up questions would be most valuable
 
-### 5. Restate and Proceed
-Summarize the clarified requirements and outline your plan before implementation.
+### 5. Ask Follow-up Questions
+Based on the responses, formulate additional targeted questions. Options include:
+- Deeper dives into specific requirements
+- Validation of assumptions
+- Constraint discovery (deadlines, budget, team size)
+- Technical preferences or priorities
+
+Repeat steps 3-5 as needed. The interview continues until the user selects the exit option or you've gathered sufficient clarity.
+
+### 6. Restate and Proceed
+Summarize the clarified requirements and outline your plan before implementation. Ask for final confirmation if needed.
 
 ## Example: Vague Request
 
@@ -82,11 +93,14 @@ Summarize the clarified requirements and outline your plan before implementation
 
 ## Best Practices
 
-- **Be concise**: Users prefer quick interviews. Ask only essential questions.
-- **Avoid assumptions**: Don't assume tech stack, naming, or architecture without asking.
-- **Offer options**: Multiple-choice questions are faster than open-ended.
-- **Show understanding**: Restate key requirements to confirm alignment.
-- **Move forward**: Once clarified, act decisively rather than asking more questions.
+- **Always include an exit option**: Every question set should have "I'm done" or "No more questions" to give users control
+- **Start with essentials**: Begin with core scope clarifications, then deeper questions based on responses
+- **Ask valuable follow-ups**: Each new question should address a specific gap or assumption
+- **Avoid repetition**: Don't ask the same thing twice; track what you've already learned
+- **Show understanding**: Restate key requirements regularly to confirm alignment
+- **Respect user choice**: If they select the exit option, summarize and proceed immediately
+- **Be concise**: Keep questions brief and focused; avoid multiple questions per turn
+- **Offer options**: Multiple-choice questions are faster than open-ended when possible
 
 ## When Not to Use
 
