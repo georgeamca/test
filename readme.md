@@ -96,7 +96,7 @@ Ready to proceed?
 
 ### Key Interview Patterns
 
-The skill includes 6 core interview patterns:
+The skill includes 11 core interview patterns:
 
 1. **Continuous Interview with Exit Option** — User controls how many rounds; every question set includes an exit
 2. **Scope Clarification** — Define must-haves, nice-to-haves, and exclusions
@@ -104,6 +104,11 @@ The skill includes 6 core interview patterns:
 4. **Constraint Discovery** — Uncover deadlines, budgets, team size
 5. **Validation & Preference** — Confirm assumptions and gather preferences
 6. **Phased Approach** — Break complex work into MVP and future phases
+7. **User Experience/UX Focus** — Understand user-facing requirements and design
+8. **Technical Requirements** — Gather technical specifications and constraints
+9. **Testing and Quality Assurance** — Define testing needs and quality metrics
+10. **Deployment and Environment** — Clarify deployment and infrastructure needs
+11. **Security and Privacy** — Address security requirements and data handling
 
 See [interview-patterns.md](.github/skills/user-interviewing/references/interview-patterns.md) for detailed patterns.
 

@@ -102,7 +102,80 @@ Use when request is complex and might benefit from MVP thinking.
 3. Should we aim for 80% functionality quickly, or 100% comprehensively? (Choice)
 4. What's your timeline for each phase? (Open)
 
-## Question Type Guidelines
+## Pattern 6: User Experience/UX Focus
+
+Use when the request involves user-facing features or interfaces.
+
+**Questions**:
+1. Who is the primary user of this feature? (Open)
+2. What should the user experience feel like? (Open)
+3. Are there specific UI/UX requirements or preferences? (Open)
+4. How should errors or edge cases be handled from a user perspective? (Open)
+
+**Example**: User says "Add user login"
+- Clarify: Should it be seamless (social login) or traditional (email/password)?
+- Clarify: What happens if login fails? Show error message, redirect, or retry?
+- Clarify: Mobile-first or desktop-first design?
+
+## Pattern 7: Technical Requirements
+
+Use when you need to understand technical specifications and constraints.
+
+**Questions**:
+1. Are there specific technical requirements (performance, compatibility)? (Open)
+2. What data formats or APIs need to be supported? (Open)
+3. Are there integration points with existing systems? (Open)
+4. What are the non-functional requirements (security, scalability)? (Open)
+
+**Example**: User says "Build a data processing pipeline"
+- Clarify: Input/output formats (JSON, CSV, binary)?
+- Clarify: Real-time processing or batch processing?
+- Clarify: Expected data volume and throughput?
+
+## Pattern 8: Testing and Quality Assurance
+
+Use when quality and reliability are important considerations.
+
+**Questions**:
+1. What level of testing is expected? (Choice: Unit, Integration, E2E)
+2. Are there specific quality metrics or SLAs? (Open)
+3. How should edge cases and error conditions be handled? (Open)
+4. What's the acceptable failure rate or downtime? (Open)
+
+**Example**: User says "Implement payment processing"
+- Clarify: Must handle all payment methods or specific ones?
+- Clarify: What happens if payment fails? Retry, notify user, or rollback?
+- Clarify: Security requirements for handling sensitive data?
+
+## Pattern 9: Deployment and Environment
+
+Use when deployment considerations are relevant.
+
+**Questions**:
+1. Where will this be deployed? (Choice: Local, Cloud, On-premise)
+2. Are there environment-specific requirements? (Open)
+3. What are the scaling needs? (Open)
+4. Are there monitoring or logging requirements? (Open)
+
+**Example**: User says "Deploy the application"
+- Clarify: Development, staging, production environments?
+- Clarify: Containerized (Docker) or traditional deployment?
+- Clarify: Auto-scaling based on load?
+
+## Pattern 10: Security and Privacy
+
+Use when security or privacy concerns are relevant.
+
+**Questions**:
+1. Are there security requirements or compliance needs? (Open)
+2. What data privacy considerations apply? (Open)
+3. How should sensitive data be handled? (Open)
+4. Are there authentication/authorization requirements? (Open)
+
+**Example**: User says "Store user data"
+- Clarify: GDPR, HIPAA, or other compliance requirements?
+- Clarify: Data encryption at rest and in transit?
+- Clarify: User consent and data deletion policies?
 
 | Type | Best For | Example |
 |------|----------|---------|
